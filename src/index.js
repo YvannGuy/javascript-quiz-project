@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const quiz = new Quiz(questions, quizDuration, quizDuration);
   // Shuffle the quiz questions
   quiz.shuffleQuestions();
-
+  console.log("this is what the quiz looks like after creating it",quiz)
 
   /************  SHOW INITIAL CONTENT  ************/
 
