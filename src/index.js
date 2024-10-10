@@ -61,6 +61,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let timer;
 
+  timer = setInterval(() => {
+    quiz.timeRemaining--;
+    const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+    const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+    timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+  if (quiz.timeRemaining <= 0) {
+    clearInterval(timer);
+    showResults()
+    timeRemainingContainer.textContent = "Time's up!";
+  }
+  }, 1000);
+
+  function restartQuiz() {
+    quiz.reset();
+    quiz.timeRemaining = quizDuration;
+  }
 
   /************  EVENT LISTENERS  ************/
 
@@ -161,8 +177,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // YOUR CODE HERE:
     //
     // 1. Get all the choice elements. You can use the `document.querySelectorAll()` method.
-
-    const getAllChoices = document.querySelectorAll ('choice')
+  
+    const getAllChoices = document.querySelectorAll('input')
     console.log (getAllChoices);
 
     // 2. Loop through all the choice elements and check which one is selected
@@ -170,10 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
       //  When a radio input gets selected the `.checked` property will be set to true.
       //  You can use check which choice was selected by checking if the `.checked` property is true.
      
-      let selectedChoice = null;
+      
       getAllChoices.forEach(choice => {
+        
         if (choice.checked) {
-          selectedChoice = choice.value;
+          selectedAnswer = choice.value;
         }
       });
       
@@ -181,11 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Check if selected answer is correct by calling the quiz method `checkAnswer()` with the selected answer.
       // Move to the next question by calling the quiz method `moveToNextQuestion()`.
       // Show the next question by calling the function `showQuestion()`.
-  }  
-  
-  if (selectedChoice) {
     
-    const isCorrect = quiz.checkAnswer(selectedChoice); 
+  
+  if (selectedAnswer) {
+    
+    const isCorrect = quiz.checkAnswer(selectedAnswer); 
   
     
     quiz.moveToNextQuestion();
@@ -193,12 +210,17 @@ document.addEventListener("DOMContentLoaded", () => {
     
     showQuestion();
 
-
+  }
+}
 
   function showResults() {
 
     // YOUR CODE HERE:
     //
+
+
+
+
     // 1. Hide the quiz view (div#quizView)
     quizView.style.display = "none";
 
@@ -207,6 +229,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
-  }
   
-});
+}
+}
+  
+);
+
+
