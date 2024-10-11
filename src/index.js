@@ -76,7 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function restartQuiz() {
     quiz.reset();
     quiz.timeRemaining = quizDuration;
+
+  const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+  const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+  timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+
+  startTimer();
+  showQuestion();
+
   }
+  restartQuiz(); 
 
   /************  EVENT LISTENERS  ************/
 
